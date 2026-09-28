@@ -1,0 +1,107 @@
+{
+  "name": "sprintpulse",
+  "displayName": "SprintTrackerNest",
+  "description": "A live sprint HUD inside VS Code from SprintTrackerNest: current sprint, business days left, health, next sprint, and Jira tickets.",
+  "version": "0.1.0",
+  "publisher": "sprintpulse",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://example.com/sprinttrackernest.git"
+  },
+  "main": "./out/src/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "sprintpulse.openSidebar",
+        "title": "SprintTrackerNest: Open Sidebar"
+      },
+      {
+        "command": "sprintpulse.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "sprintpulse.connectJira",
+        "title": "SprintTrackerNest: Connect Jira"
+      },
+      {
+        "command": "sprintpulse.disconnectJira",
+        "title": "SprintTrackerNest: Disconnect Jira"
+      },
+      {
+        "command": "sprintpulse.setBoardId",
+        "title": "SprintTrackerNest: Set Scrum Board ID"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sprintpulse",
+          "title": "SprintTrackerNest",
+          "icon": "$(rocket)"
+        }
+      ]
+    },
+    "views": {
+      "sprintpulse": [
+        {
+          "id": "sprintpulse.currentSprint",
+          "name": "Current Sprint",
+          "type": "webview",
+          "visibility": "visible"
+        },
+        {
+          "id": "sprintpulse.roadmap",
+          "name": "Jira Tickets",
+          "type": "webview",
+          "visibility": "visible"
+        },
+        {
+          "id": "sprintpulse.settings",
+          "name": "Settings",
+          "type": "webview",
+          "visibility": "collapsed"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "sprintpulse.refresh",
+          "when": "view == sprintpulse.currentSprint",
+          "group": "navigation"
+        },
+        {
+          "command": "sprintpulse.refresh",
+          "when": "view == sprintpulse.roadmap",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "test": "mocha \"out/test/unit/**/*.test.js\"",
+    "test:integration": "node ./out/test/integration/runTest.js"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^2.3.9",
+    "@vscode/vsce": "^4.0.0",
+    "fast-check": "^3.15.0",
+    "mocha": "^10.3.0",
+    "typescript": "^5.3.3"
+  }
+}

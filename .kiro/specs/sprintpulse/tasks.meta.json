@@ -1,0 +1,385 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Scaffold project and extension manifest": [
+      {
+        "executionId": "7751dcd3-9082-47b0-b9d8-7cbc7751d81e",
+        "chatSessionId": "sess_6bb74f4b-3dea-4c84-8395-87c43297c646",
+        "timestamp": 1790493362436
+      },
+      {
+        "executionId": "7751dcd3-9082-47b0-b9d8-7cbc7751d81e",
+        "chatSessionId": "sess_6bb74f4b-3dea-4c84-8395-87c43297c646",
+        "timestamp": 1790493520646
+      }
+    ],
+    "2.1 Create entity model files": [
+      {
+        "executionId": "1541f2b2-f9fc-457a-8694-9ad603adc207",
+        "chatSessionId": "sess_ee258772-b711-4053-869b-e35fba03204f",
+        "timestamp": 1790493567966
+      },
+      {
+        "executionId": "1541f2b2-f9fc-457a-8694-9ad603adc207",
+        "chatSessionId": "sess_ee258772-b711-4053-869b-e35fba03204f",
+        "timestamp": 1790493645714
+      }
+    ],
+    "2.2 Define view-model and core output types": [
+      {
+        "executionId": "1541f2b2-f9fc-457a-8694-9ad603adc207",
+        "chatSessionId": "sess_ee258772-b711-4053-869b-e35fba03204f",
+        "timestamp": 1790493568234
+      },
+      {
+        "executionId": "1541f2b2-f9fc-457a-8694-9ad603adc207",
+        "chatSessionId": "sess_ee258772-b711-4053-869b-e35fba03204f",
+        "timestamp": 1790493646504
+      }
+    ],
+    "2. Define data models and view-model types": [
+      {
+        "executionId": "1541f2b2-f9fc-457a-8694-9ad603adc207",
+        "chatSessionId": "sess_ee258772-b711-4053-869b-e35fba03204f",
+        "timestamp": 1790493646668
+      }
+    ],
+    "3.1 Implement calendar-date helpers in `core/businessDays.ts`": [
+      {
+        "executionId": "9d2e8efa-435c-4796-a9a9-2060a77ce955",
+        "chatSessionId": "sess_232e7216-4707-47d2-b300-8fe86e0f3c9a",
+        "timestamp": 1790493698869
+      },
+      {
+        "executionId": "9d2e8efa-435c-4796-a9a9-2060a77ce955",
+        "chatSessionId": "sess_232e7216-4707-47d2-b300-8fe86e0f3c9a",
+        "timestamp": 1790493788471
+      }
+    ],
+    "3. Implement Central-Time calendar-date primitives": [
+      {
+        "executionId": "9d2e8efa-435c-4796-a9a9-2060a77ce955",
+        "chatSessionId": "sess_232e7216-4707-47d2-b300-8fe86e0f3c9a",
+        "timestamp": 1790493788633
+      }
+    ],
+    "4.1 Implement `countBusinessDays(start, end)` in `core/businessDays.ts`": [
+      {
+        "executionId": "f9d2e6a5-58f9-46a5-aeb8-b9a58cbcc1b7",
+        "chatSessionId": "sess_1b8e90e3-af3a-426d-87f6-50b732aaf57c",
+        "timestamp": 1790493815370
+      },
+      {
+        "executionId": "f9d2e6a5-58f9-46a5-aeb8-b9a58cbcc1b7",
+        "chatSessionId": "sess_1b8e90e3-af3a-426d-87f6-50b732aaf57c",
+        "timestamp": 1790493902886
+      }
+    ],
+    "4. Implement business-day counting": [
+      {
+        "executionId": "f9d2e6a5-58f9-46a5-aeb8-b9a58cbcc1b7",
+        "chatSessionId": "sess_1b8e90e3-af3a-426d-87f6-50b732aaf57c",
+        "timestamp": 1790493902998
+      }
+    ],
+    "5.1 Implement `totalBusinessDays`, `elapsedBusinessDays`, `remainingBusinessDays`, `timelineProgress` in `core/businessDays.ts`": [
+      {
+        "executionId": "6b9a1976-c37c-452d-a999-3fc25853da51",
+        "chatSessionId": "sess_9b0c6642-ab3e-4217-8ffc-efc233915e6b",
+        "timestamp": 1790493936697
+      },
+      {
+        "executionId": "6b9a1976-c37c-452d-a999-3fc25853da51",
+        "chatSessionId": "sess_9b0c6642-ab3e-4217-8ffc-efc233915e6b",
+        "timestamp": 1790494014010
+      }
+    ],
+    "5. Implement elapsed, remaining, and timeline progress": [
+      {
+        "executionId": "6b9a1976-c37c-452d-a999-3fc25853da51",
+        "chatSessionId": "sess_9b0c6642-ab3e-4217-8ffc-efc233915e6b",
+        "timestamp": 1790494014228
+      }
+    ],
+    "6. Checkpoint - Business-day core": [
+      {
+        "executionId": "f2936390-8cff-4b22-a9b1-b3735d8dde54",
+        "chatSessionId": "sess_aee77e57-dd83-4882-9e74-35d1a18d5098",
+        "timestamp": 1790494032708
+      },
+      {
+        "executionId": "f2936390-8cff-4b22-a9b1-b3735d8dde54",
+        "chatSessionId": "sess_aee77e57-dd83-4882-9e74-35d1a18d5098",
+        "timestamp": 1790494105460
+      }
+    ],
+    "7.1 Implement `healthDelta`, `resolveHealthBand`, `resolveHealth` in `core/healthCalculator.ts`": [
+      {
+        "executionId": "c8b62c96-3a16-48a4-a56d-338f0afc2e3a",
+        "chatSessionId": "sess_33b0debc-2039-42f1-b78c-d52d3b17ce41",
+        "timestamp": 1790494158684
+      },
+      {
+        "executionId": "c8b62c96-3a16-48a4-a56d-338f0afc2e3a",
+        "chatSessionId": "sess_33b0debc-2039-42f1-b78c-d52d3b17ce41",
+        "timestamp": 1790494244859
+      }
+    ],
+    "7. Implement health calculator": [
+      {
+        "executionId": "c8b62c96-3a16-48a4-a56d-338f0afc2e3a",
+        "chatSessionId": "sess_33b0debc-2039-42f1-b78c-d52d3b17ce41",
+        "timestamp": 1790494244980
+      }
+    ],
+    "8. Implement ticket view and progress": [
+      {
+        "executionId": "a256f953-09a2-49e6-8559-6ccf080f5883",
+        "chatSessionId": "sess_d388099c-7509-42f9-9acf-ce6733ec3f82",
+        "timestamp": 1790494284451
+      },
+      {
+        "executionId": "a256f953-09a2-49e6-8559-6ccf080f5883",
+        "chatSessionId": "sess_d388099c-7509-42f9-9acf-ce6733ec3f82",
+        "timestamp": 1790494360098
+      }
+    ],
+    "9. Implement sprint selection and milestone filtering": [
+      {
+        "executionId": "aba85b12-2ec9-43d3-8242-bf6ac870bf46",
+        "chatSessionId": "sess_5f186aa9-5d04-483e-9aca-19d75a86c983",
+        "timestamp": 1790494392560
+      },
+      {
+        "executionId": "aba85b12-2ec9-43d3-8242-bf6ac870bf46",
+        "chatSessionId": "sess_5f186aa9-5d04-483e-9aca-19d75a86c983",
+        "timestamp": 1790494502880
+      }
+    ],
+    "10.1 Implement `buildViewModel(data, now)` in `core/sprintEngine.ts`": [
+      {
+        "executionId": "efaeb855-a747-4eb7-a91b-04eb74bb0e98",
+        "chatSessionId": "sess_ad2cd9cb-0609-475a-b8df-19b040639001",
+        "timestamp": 1790494532268
+      },
+      {
+        "executionId": "efaeb855-a747-4eb7-a91b-04eb74bb0e98",
+        "chatSessionId": "sess_ad2cd9cb-0609-475a-b8df-19b040639001",
+        "timestamp": 1790494635469
+      }
+    ],
+    "10. Compose the view model": [
+      {
+        "executionId": "efaeb855-a747-4eb7-a91b-04eb74bb0e98",
+        "chatSessionId": "sess_ad2cd9cb-0609-475a-b8df-19b040639001",
+        "timestamp": 1790494635603
+      }
+    ],
+    "11. Checkpoint - Pure core complete": [
+      {
+        "executionId": "48762085-822c-4ffc-befb-58ccfeb3d7af",
+        "chatSessionId": "sess_5e39bafd-e7b6-4a67-ab91-389da2f4023e",
+        "timestamp": 1790494669684
+      }
+    ],
+    "12.1 Implement `loadSprintData(raw)` in `core/sprintEngine.ts`": [
+      {
+        "executionId": "03f5037d-5068-4889-a6b7-042fbfffe8de",
+        "chatSessionId": "sess_e8b22976-731a-4cb0-9920-ee3e66c96969",
+        "timestamp": 1790494756540
+      },
+      {
+        "executionId": "03f5037d-5068-4889-a6b7-042fbfffe8de",
+        "chatSessionId": "sess_e8b22976-731a-4cb0-9920-ee3e66c96969",
+        "timestamp": 1790494899268
+      }
+    ],
+    "12. Implement data loader and validation": [
+      {
+        "executionId": "03f5037d-5068-4889-a6b7-042fbfffe8de",
+        "chatSessionId": "sess_e8b22976-731a-4cb0-9920-ee3e66c96969",
+        "timestamp": 1790494899505
+      }
+    ],
+    "13. Implement the status bar surface": [
+      {
+        "executionId": "3ad6627c-eb7a-452d-ad0d-f2e1968545c0",
+        "chatSessionId": "sess_8a061445-9bce-44c3-87c4-416436aa69d1",
+        "timestamp": 1790494942740
+      },
+      {
+        "executionId": "3ad6627c-eb7a-452d-ad0d-f2e1968545c0",
+        "chatSessionId": "sess_8a061445-9bce-44c3-87c4-416436aa69d1",
+        "timestamp": 1790495036950
+      }
+    ],
+    "14.1 Create `webview/sidebar.html` and `webview/sidebar.css`": [
+      {
+        "executionId": "13a5f1fe-7197-4bc9-9cb8-8729f9c3a5dc",
+        "chatSessionId": "sess_785ed963-e8e4-49ae-97de-911584d6b571",
+        "timestamp": 1790495096055
+      },
+      {
+        "executionId": "13a5f1fe-7197-4bc9-9cb8-8729f9c3a5dc",
+        "chatSessionId": "sess_785ed963-e8e4-49ae-97de-911584d6b571",
+        "timestamp": 1790495249342
+      }
+    ],
+    "14.2 Implement `webview/sidebar.js` rendering and messaging": [
+      {
+        "executionId": "13a5f1fe-7197-4bc9-9cb8-8729f9c3a5dc",
+        "chatSessionId": "sess_785ed963-e8e4-49ae-97de-911584d6b571",
+        "timestamp": 1790495255673
+      },
+      {
+        "executionId": "13a5f1fe-7197-4bc9-9cb8-8729f9c3a5dc",
+        "chatSessionId": "sess_785ed963-e8e4-49ae-97de-911584d6b571",
+        "timestamp": 1790495412337
+      }
+    ],
+    "14. Build the webview sidebar assets": [
+      {
+        "executionId": "13a5f1fe-7197-4bc9-9cb8-8729f9c3a5dc",
+        "chatSessionId": "sess_785ed963-e8e4-49ae-97de-911584d6b571",
+        "timestamp": 1790495412487
+      }
+    ],
+    "15.1 Implement `src/sidebar.ts`": [
+      {
+        "executionId": "581bf8d8-7f1f-4e6c-bfb0-bd34ac3485ce",
+        "chatSessionId": "sess_7ce151bf-0a4a-4583-a08b-31fb7f347012",
+        "timestamp": 1790495520653
+      },
+      {
+        "executionId": "581bf8d8-7f1f-4e6c-bfb0-bd34ac3485ce",
+        "chatSessionId": "sess_7ce151bf-0a4a-4583-a08b-31fb7f347012",
+        "timestamp": 1790495663639
+      }
+    ],
+    "15. Implement the sidebar provider and messaging host": [
+      {
+        "executionId": "581bf8d8-7f1f-4e6c-bfb0-bd34ac3485ce",
+        "chatSessionId": "sess_7ce151bf-0a4a-4583-a08b-31fb7f347012",
+        "timestamp": 1790495663872
+      }
+    ],
+    "16.1 Implement `src/extension.ts`": [
+      {
+        "executionId": "803bf763-d9c2-4e4a-a45d-88ea852a55d7",
+        "chatSessionId": "sess_e1d8a78e-1f0b-43de-97a2-660d35b08f33",
+        "timestamp": 1790495727279
+      },
+      {
+        "executionId": "803bf763-d9c2-4e4a-a45d-88ea852a55d7",
+        "chatSessionId": "sess_e1d8a78e-1f0b-43de-97a2-660d35b08f33",
+        "timestamp": 1790495985175
+      }
+    ],
+    "16. Wire up extension activation": [
+      {
+        "executionId": "803bf763-d9c2-4e4a-a45d-88ea852a55d7",
+        "chatSessionId": "sess_e1d8a78e-1f0b-43de-97a2-660d35b08f33",
+        "timestamp": 1790495985440
+      }
+    ],
+    "18. Integration tests and sample data": [
+      {
+        "executionId": "dd1291ef-ce91-4a75-8071-52c0d02fd5dd",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790496100428
+      },
+      {
+        "executionId": "dd1291ef-ce91-4a75-8071-52c0d02fd5dd",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790496176102
+      }
+    ],
+    "19. Final checkpoint - Full suite": [
+      {
+        "executionId": "d5a425eb-1d02-450f-8663-49d31babee24",
+        "chatSessionId": "sess_a76af0e2-42fb-45fc-b2b3-c5d3a124ed35",
+        "timestamp": 1790496190495
+      },
+      {
+        "executionId": "d5a425eb-1d02-450f-8663-49d31babee24",
+        "chatSessionId": "sess_a76af0e2-42fb-45fc-b2b3-c5d3a124ed35",
+        "timestamp": 1790497305753
+      }
+    ],
+    "18.1 Create `storage/sprintData.json` sample data": [
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497594953
+      }
+    ],
+    "8.1 Implement `buildTicketView(ticketSummary)` in `core/sprintEngine.ts`": [
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497599780
+      },
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497619725
+      },
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497682903
+      }
+    ],
+    "9.1 Implement `pickActiveSprint` and `pickNextSprint` in `core/sprintEngine.ts`": [
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497599870
+      },
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497739829
+      },
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497857831
+      }
+    ],
+    "9.2 Implement `upcomingMilestones` in `core/sprintEngine.ts`": [
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497599936
+      },
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497858779
+      },
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497941794
+      }
+    ],
+    "13.1 Implement `src/statusBar.ts`": [
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497600001
+      },
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497620718
+      },
+      {
+        "executionId": "6c3a0398-3e92-45d4-a0f0-71be7245117f",
+        "chatSessionId": "sess_bcb2df9a-62c4-4eec-9237-2016837346dd",
+        "timestamp": 1790497738880
+      }
+    ]
+  }
+}

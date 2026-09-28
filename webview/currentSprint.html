@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--
+    Content-Security-Policy is injected by the host (src/sidebar.ts) so it can
+    include the real cspSource and a per-load nonce. The placeholder below is
+    rewritten before the HTML reaches the webview.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="%CSP%" />
+  <!-- Host rewrites this href to a webview URI (webview.asWebviewUri). -->
+  <link rel="stylesheet" href="sidebar.css" />
+  <title>Current Sprint</title>
+</head>
+<body>
+  <!--
+    "Current Sprint" native view. Two sub-sections separated by the
+    .sp-section bottom-border divider: current sprint and sprint health.
+    (Ticket Progress lives in the "Jira Tickets" view now.) All dynamic text,
+    bar widths, health colors, and show/hide are done by currentSprint.js from a
+    single SprintViewModel payload.
+  -->
+  <main id="sprintpulse-root" class="sp-root">
+
+    <!--
+      Loading overlay row. Hidden by default; shown by JS on {type:"loading"}
+      while a fetch is in flight. It sits ABOVE the content and never clears it.
+    -->
+    <div id="loading-indicator" class="sp-loading" hidden>
+      <span class="sp-spinner" aria-hidden="true"></span>
+      <span class="sp-loading-label">Refreshing…</span>
+    </div>
+
+    <!-- Error card. Hidden by default; shown by JS on unreadable data. -->
+    <section id="error-card" class="sp-error-card" hidden>
+      <span class="sp-error-icon" aria-hidden="true">⚠</span>
+      <p id="error-message" class="sp-error-message"></p>
+    </section>
+
+    <!--
+      NOT-CONNECTED empty state. Hidden by default; shown by JS on
+      {type:"notConnected"}. Calm + muted (no red, no border) — being
+      disconnected is not an error.
+    -->
+    <section id="not-connected" class="sp-empty-state" hidden>
+      <span class="sp-empty-glyph" aria-hidden="true">🏃</span>
+      <p id="empty-line-primary" class="sp-empty-line">Not connected to Jira.</p>
+      <p id="empty-line-secondary" class="sp-empty-line sp-empty-sub">Connect in Settings to see your sprint.</p>
+    </section>
+
+    <!--
+      CURRENT SPRINT + SPRINT HEALTH in ONE block (Requirement 2.x / 4.x).
+      The "Current Sprint" section title is removed (redundant) and there is no
+      divider between the sprint details and the health sub-section, so they
+      read as a single block. The sprint name renders as a chip/badge.
+    -->
+    <section id="current-sprint-section" class="sp-section" data-section="currentSprint">
+
+      <!-- Shown when an active sprint exists -->
+      <div id="current-sprint-content" class="sp-section-body" hidden>
+        <p><span id="current-sprint-name" class="sp-chip sp-sprint-name"></span></p>
+        <p class="sp-sprint-dates">
+          <span id="current-sprint-start" class="sp-date"></span>
+          <span class="sp-date-sep">→</span>
+          <span id="current-sprint-end" class="sp-date"></span>
+        </p>
+        <p class="sp-remaining">
+          <span id="current-sprint-remaining" class="sp-remaining-value"></span>
+          <span class="sp-remaining-label">business days left</span>
+        </p>
+
+        <!-- Timeline progress bar: track + fill (fill width set by JS as %) -->
+        <div class="sp-progress" data-progress="timeline">
+          <div class="progress-track">
+            <div id="timeline-progress-fill" class="progress-fill"></div>
+          </div>
+          <span id="timeline-progress-label" class="sp-progress-label"></span>
+        </div>
+      </div>
+
+      <!-- SPRINT HEALTH — same block, no divider above it. -->
+      <div id="sprint-health-content" class="sp-section-body sp-health-block" hidden>
+        <div id="health-badge" class="sp-health-badge">
+          <span id="health-icon" class="sp-health-icon" aria-hidden="true"></span>
+          <span id="health-label" class="sp-health-label"></span>
+        </div>
+      </div>
+
+      <!-- Shown when no active sprint or health cannot be computed -->
+      <p id="sprint-health-empty" class="sp-empty" hidden>Health unavailable — no active sprint.</p>
+
+      <!-- Shown when no active sprint -->
+      <p id="current-sprint-empty" class="sp-empty" hidden>No active sprint.</p>
+    </section>
+
+  </main>
+
+  <!-- Host rewrites src to a webview URI and injects the matching nonce. -->
+  <script nonce="%NONCE%" src="currentSprint.js"></script>
+</body>
+</html>

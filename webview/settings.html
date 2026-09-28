@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="%CSP%" />
+  <link rel="stylesheet" href="sidebar.css" />
+  <title>Settings</title>
+</head>
+<body>
+  <!--
+    "Settings" native view (collapsed by default via the views contribution).
+
+    NOT connected — show ONLY:
+      - the connect-description ("Connect SprintTrackerNest to your Jira
+        account.") + the "Connect Jira" button, in ONE section (no divider
+        between the text and the button).
+      All connected-only sections (account, board, refresh) are hidden,
+      including their divider borders.
+
+    CONNECTED, NO board — show:
+      1. account name + green "✓" + "Jira connected and authenticated" line,
+      2. Set Scrum Board button,
+      4. Disconnect Jira button LAST.
+      The Refresh section is HIDDEN (no board set yet).
+
+    CONNECTED, board set — show, top to bottom:
+      1. account name + green "✓" + "Jira connected and authenticated" line,
+      2. Set/Change Scrum Board button + short description,
+      3. Refresh button + short description + "Last synced …" line under it,
+      4. Disconnect Jira button LAST.
+      The connect-description is hidden when connected.
+
+    settings.js drives per-section visibility, button labels, the account line,
+    and the last-synced line from host messages
+    ({type:"accountState"|"boardState"|"syncState"}). The Refresh section's
+    visibility depends on BOTH connected AND a board being set.
+  -->
+  <main id="sprintpulse-root" class="sp-root sp-settings-centered">
+
+    <!--
+      Loading overlay row. Hidden by default; shown by JS on {type:"loading"}
+      while a fetch is in flight. It sits ABOVE the content and never clears it.
+    -->
+    <div id="loading-indicator" class="sp-loading" hidden>
+      <span class="sp-spinner" aria-hidden="true"></span>
+      <span class="sp-loading-label">Refreshing…</span>
+    </div>
+
+    <!--
+      ACCOUNT NAME (1) — shown ONLY when connected; no description. The name row
+      carries a green check "✓" to its left; a muted "Jira connected and
+      authenticated" line sits under the name. Both appear only when connected.
+    -->
+    <section id="account-section" class="sp-section" data-section="account" hidden>
+      <p class="sp-account-row">
+        <span id="account-check" class="sp-account-check" aria-hidden="true">✓</span>
+        <span id="account-name" class="sp-account-name"></span>
+      </p>
+      <p id="account-authenticated" class="sp-account-authenticated">Jira connected and authenticated</p>
+    </section>
+
+    <!-- SCRUM BOARD (2) — whole section (incl. divider) HIDDEN when NOT connected. -->
+    <section id="board-section" class="sp-section" data-section="board" hidden>
+      <div class="sp-actions">
+        <p class="sp-action-desc">Choose which scrum board this sprint HUD tracks.</p>
+        <button id="set-board-id-button" type="button" class="sp-button">Set Scrum Board</button>
+      </div>
+    </section>
+
+    <!-- REFRESH (3) — whole section (incl. divider) HIDDEN when NOT connected. -->
+    <section id="refresh-section" class="sp-section" data-section="refresh" hidden>
+      <div class="sp-actions">
+        <p class="sp-action-desc">Re-fetch sprint data from Jira.</p>
+        <button id="refresh-button" type="button" class="sp-button sp-button-secondary">Refresh</button>
+        <p id="last-synced" class="sp-last-synced">Never synced</p>
+      </div>
+    </section>
+
+    <!--
+      JIRA CONNECTION (4) — ALWAYS shown, LAST. Label flips Connect/Disconnect.
+      The connect description lives in THIS SAME section (no divider between the
+      text and the Connect button) and is shown ONLY when NOT connected.
+    -->
+    <section id="jira-section" class="sp-section" data-section="jira">
+      <div class="sp-actions">
+        <p id="connect-desc" class="sp-action-desc">Connect SprintTrackerNest to your Jira account.</p>
+        <button id="connect-jira-button" type="button" class="sp-button">Connect Jira</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script nonce="%NONCE%" src="settings.js"></script>
+</body>
+</html>

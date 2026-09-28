@@ -1,0 +1,11 @@
+.vscode/**
+.kiro/**
+node_modules/**
+test/**
+out/test/**
+**/*.ts
+**/*.map
+tsconfig.json
+.gitignore
+storage/**
+**/*.bak

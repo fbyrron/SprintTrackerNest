@@ -1,0 +1,778 @@
+/*
+ * webview/sidebar.css
+ *
+ * Styling for the SprintPulse webview sidebar (task 14.1).
+ * Static scaffold styling only — sidebar.js (task 14.2) toggles [hidden],
+ * sets progress-fill widths, and applies health-color classes at runtime.
+ *
+ * Colors come from VS Code theme variables (var(--vscode-...)) so the panel
+ * matches the active editor theme. Health colors fall back to fixed
+ * green/yellow/red when the corresponding theme token is unavailable.
+ */
+
+:root {
+  --sp-gap: 12px;
+  --sp-radius: 4px;
+  --sp-track-height: 8px;
+
+  /* Health colors — prefer theme chart/severity tokens, fall back to fixed. */
+  --sp-health-green: var(--vscode-charts-green, #3fb950);
+  --sp-health-yellow: var(--vscode-charts-yellow, #d29922);
+  --sp-health-red: var(--vscode-charts-red, #f85149);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: var(--sp-gap);
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+  color: var(--vscode-foreground);
+  background-color: var(--vscode-editor-background, var(--vscode-sideBar-background));
+  line-height: 1.4;
+}
+
+.sp-root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-gap);
+}
+
+/* ---- Header + refresh ---------------------------------------------------- */
+
+.sp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sp-title {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.sp-refresh {
+  font: inherit;
+  cursor: pointer;
+  padding: 2px 8px;
+  border: 1px solid var(--vscode-button-border, transparent);
+  border-radius: var(--sp-radius);
+  color: var(--vscode-button-secondaryForeground, var(--vscode-button-foreground));
+  background-color: var(--vscode-button-secondaryBackground, var(--vscode-button-background));
+}
+
+.sp-refresh:hover {
+  background-color: var(--vscode-button-secondaryHoverBackground, var(--vscode-button-hoverBackground));
+}
+
+.sp-refresh:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: 1px;
+}
+
+/* ---- Loading spinner overlay --------------------------------------------- */
+/*
+ * A lightweight loading indicator shown while the host is fetching from Jira.
+ * It is an OVERLAY row that sits above the content — it never replaces or
+ * clears the currently-rendered view. Each view's script toggles the [hidden]
+ * attribute on the `.sp-loading` row from {type:"loading", isLoading}.
+ *
+ * The spinner itself is a small rotating ring: a circle with a colored top
+ * border, animated by the sp-spin keyframes below. Theme-colored so it matches
+ * the active editor theme.
+ */
+.sp-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.9em;
+}
+
+.sp-spinner {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--vscode-editorWidget-border, rgba(128, 128, 128, 0.35));
+  border-top-color: var(--vscode-progressBar-background, var(--vscode-foreground));
+  border-radius: 50%;
+  animation: sp-spin 0.8s linear infinite;
+}
+
+@keyframes sp-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Respect reduced-motion preferences: drop the animation but keep the ring. */
+@media (prefers-reduced-motion: reduce) {
+  .sp-spinner {
+    animation: none;
+  }
+}
+
+/* ---- Error card (Requirement 15.1) --------------------------------------- */
+
+.sp-error-card {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-radius: var(--sp-radius);
+  border: 1px solid var(--vscode-inputValidation-errorBorder, var(--sp-health-red));
+  background-color: var(--vscode-inputValidation-errorBackground, rgba(248, 81, 73, 0.1));
+  color: var(--vscode-foreground);
+}
+
+.sp-error-icon {
+  flex: 0 0 auto;
+  color: var(--sp-health-red);
+}
+
+.sp-error-message {
+  margin: 0;
+  word-break: break-word;
+}
+
+/* ---- Not-connected empty state ------------------------------------------- */
+/*
+ * A calm, muted empty state shown in Views 1 & 2 when Jira is not connected.
+ * Being disconnected is NOT an error, so this deliberately has NO red and NO
+ * border — it mirrors VS Code's own empty views: centered, muted text with a
+ * slightly larger glyph and a small gap between the two lines.
+ */
+.sp-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  padding: 24px 12px;
+  color: var(--vscode-descriptionForeground);
+}
+
+.sp-empty-glyph {
+  font-size: 1.6em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.sp-empty-line {
+  margin: 0;
+  color: var(--vscode-descriptionForeground);
+}
+
+/* The second line reads as a quieter sub-instruction. */
+.sp-empty-sub {
+  font-size: 0.9em;
+  opacity: 0.9;
+}
+
+/* ---- Sections ------------------------------------------------------------ */
+
+.sp-section {
+  padding-bottom: var(--sp-gap);
+  border-bottom: 1px solid var(--vscode-panel-border, var(--vscode-editorWidget-border, rgba(128, 128, 128, 0.35)));
+}
+
+.sp-section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/*
+ * The last VISIBLE section (marked by settings.js) drops its divider + bottom
+ * padding, so a hidden trailing section can't leave a dangling rule under the
+ * bottom-most content.
+ */
+.sp-section.sp-section-last {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sp-section-title {
+  margin: 0 0 6px 0;
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vscode-descriptionForeground);
+}
+
+/* ---- Collapsible sections (like the Extensions pane) --------------------- */
+
+.sp-section-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  margin: 0 0 6px 0;
+  padding: 2px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  color: var(--vscode-descriptionForeground);
+}
+
+.sp-section-toggle:hover {
+  color: var(--vscode-foreground);
+}
+
+.sp-section-toggle:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: 2px;
+}
+
+.sp-section-toggle .sp-section-title {
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.sp-chevron {
+  flex: 0 0 auto;
+  width: 1em;
+  text-align: center;
+  transition: transform 0.15s ease;
+  transform: rotate(90deg); /* expanded: pointing down */
+}
+
+.sp-section.sp-collapsed .sp-chevron {
+  transform: rotate(0deg); /* collapsed: pointing right */
+}
+
+.sp-section.sp-collapsed .sp-section-body,
+.sp-section.sp-collapsed .sp-empty,
+.sp-section.sp-collapsed .sp-group-body,
+.sp-section.sp-collapsed .sp-roadmap-list,
+.sp-section.sp-collapsed .sp-milestones-list {
+  display: none !important;
+}
+
+/* ---- MCP-style nested collapsible sub-groups ----------------------------- */
+/*
+ * Mirrors Kiro's "MCP Servers" nested groups: a clickable header row with a
+ * chevron glyph on the LEFT that rotates between right (collapsed) and down
+ * (expanded). roadmap.js toggles `.sp-collapsed` on the enclosing `.sp-group`
+ * and flips the header's aria-expanded. The HTML seeds a right-pointing "▸"
+ * glyph; the transform below rotates it to point down when expanded.
+ */
+
+/*
+ * Compact header ROW mirroring Kiro's "MCP Servers" nested groups: a small
+ * left chevron that rotates (right = collapsed, down = expanded), the group
+ * title in NORMAL weight, optional muted detail text after the title, and a
+ * full-row hover highlight. The row spans the panel width and has a little
+ * horizontal padding so the hover background reads as a row, not just text.
+ */
+.sp-group-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  margin: 0;
+  padding: 3px 6px;
+  border-radius: var(--sp-radius);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  color: var(--vscode-foreground);
+}
+
+.sp-group-header:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+.sp-group-header:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+.sp-group-title {
+  flex: 0 0 auto;
+  font-size: var(--vscode-font-size);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--vscode-foreground);
+}
+
+/* Muted detail text after the title (e.g. "12 / 40" or a sprint name). */
+.sp-group-detail {
+  flex: 1 1 auto;
+  margin-left: 6px;
+  font-size: 0.9em;
+  color: var(--vscode-descriptionForeground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Chevron: a glyph rotated by CSS. Expanded points down; collapsed points
+ * right. The transition gives the same subtle rotate the MCP panel uses. */
+.sp-group-header .sp-chevron {
+  flex: 0 0 auto;
+  width: 1em;
+  text-align: center;
+  color: var(--vscode-icon-foreground, var(--vscode-descriptionForeground));
+  transform: rotate(90deg); /* expanded: pointing down */
+}
+
+.sp-section.sp-collapsed .sp-group-header .sp-chevron {
+  transform: rotate(0deg); /* collapsed: pointing right */
+}
+
+/* Child content indented under the header, like the MCP nested rows. */
+.sp-group-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+  padding-left: 22px;
+}
+
+.sp-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sp-empty {
+  margin: 0;
+  font-style: italic;
+  color: var(--vscode-descriptionForeground);
+}
+
+.sp-sprint-name {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ---- Chip / badge (sprint name in the Current Sprint view) --------------- */
+/*
+ * Small rounded pill using the theme's badge tokens so the sprint name reads as
+ * a status chip. Applied to the sprint-name span in currentSprint.html.
+ */
+.sp-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.85em;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--vscode-badge-foreground);
+  background-color: var(--vscode-badge-background);
+}
+
+/* Health block sits inside the same section as the sprint details (no divider);
+ * a small top margin keeps them visually grouped but not cramped. */
+.sp-health-block {
+  margin-top: 4px;
+}
+
+.sp-sprint-dates {
+  margin: 0;
+  color: var(--vscode-descriptionForeground);
+}
+
+.sp-date-sep {
+  margin: 0 4px;
+}
+
+.sp-date-label {
+  margin-right: 4px;
+  color: var(--vscode-descriptionForeground);
+}
+
+.sp-remaining {
+  margin: 0;
+}
+
+.sp-remaining-value {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.sp-remaining-label {
+  color: var(--vscode-descriptionForeground);
+}
+
+/* ---- Progress bars: track + fill ----------------------------------------- */
+/*
+ * .progress-track is the container; .progress-fill is the filled portion.
+ * sidebar.js sets `.progress-fill { width: <pct>% }` from timelineProgress /
+ * ticketProgress. A total of 0 yields width 0% (empty bar, no NaN).
+ */
+
+.sp-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.progress-track {
+  width: 100%;
+  height: var(--sp-track-height);
+  border-radius: calc(var(--sp-track-height) / 2);
+  overflow: hidden;
+  background-color: var(--vscode-editorWidget-border, rgba(128, 128, 128, 0.25));
+}
+
+.progress-fill {
+  width: 0%; /* set by sidebar.js as a percentage */
+  min-width: 2px;
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--vscode-progressBar-background, #0e70c0);
+  transition: width 0.2s ease;
+}
+
+/*
+ * Optional health tinting of a fill: when JS adds a health-* class to a
+ * .progress-fill (or its wrapper), the fill takes the matching color.
+ */
+.progress-fill.health-green,
+.health-green .progress-fill {
+  background-color: var(--sp-health-green);
+}
+
+.progress-fill.health-yellow,
+.health-yellow .progress-fill {
+  background-color: var(--sp-health-yellow);
+}
+
+.progress-fill.health-red,
+.health-red .progress-fill {
+  background-color: var(--sp-health-red);
+}
+
+.sp-progress-label {
+  font-size: 0.9em;
+  color: var(--vscode-descriptionForeground);
+}
+
+/* ---- Ticket counts ------------------------------------------------------- */
+
+.sp-ticket-counts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sp-count {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.sp-count-label {
+  color: var(--vscode-descriptionForeground);
+}
+
+.sp-count-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Ticket rows (board columns in the "Jira Tickets" view) -------------- */
+/*
+ * Each column is rendered as a `.sp-section.sp-group` collapsible (reusing the
+ * MCP-style nested-group styles above). Under a column, its tickets are rows:
+ * a monospaced KEY (link-colored) + a muted, ellipsized summary.
+ */
+
+.sp-ticket-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sp-ticket-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.sp-ticket-key {
+  flex: 0 0 auto;
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-variant-numeric: tabular-nums;
+  color: var(--vscode-textLink-foreground);
+  white-space: nowrap;
+}
+
+.sp-ticket-summary {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--vscode-descriptionForeground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* "No tickets" line inside an empty column. */
+.sp-ticket-empty {
+  margin: 0;
+  font-style: italic;
+  color: var(--vscode-descriptionForeground);
+}
+
+/* ---- Health badge + colors ----------------------------------------------- */
+/*
+ * green/yellow/red map to design 4.x: green = On Track / Ahead,
+ * yellow = Behind Schedule, red = At Risk. sidebar.js sets exactly one of
+ * these classes on #health-badge from vm.health.color.
+ */
+
+.sp-health-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--sp-radius);
+  font-weight: 600;
+  border: 1px solid transparent;
+  align-self: flex-start;
+}
+
+.sp-health-icon {
+  line-height: 1;
+}
+
+.sp-health-badge.health-green {
+  color: var(--sp-health-green);
+  border-color: var(--sp-health-green);
+  background-color: rgba(63, 185, 80, 0.12);
+}
+
+.sp-health-badge.health-yellow {
+  color: var(--sp-health-yellow);
+  border-color: var(--sp-health-yellow);
+  background-color: rgba(210, 153, 34, 0.12);
+}
+
+.sp-health-badge.health-red {
+  color: var(--sp-health-red);
+  border-color: var(--sp-health-red);
+  background-color: rgba(248, 81, 73, 0.12);
+}
+
+/* ---- Roadmap list -------------------------------------------------------- */
+
+.sp-roadmap-list,
+.sp-milestones-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sp-cycle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* State indicator glyph prepended by JS; classes let CSS color it. */
+.sp-cycle-indicator {
+  flex: 0 0 auto;
+  width: 1.2em;
+  text-align: center;
+}
+
+.sp-cycle-completed .sp-cycle-indicator {
+  color: var(--sp-health-green);
+}
+
+.sp-cycle-current {
+  font-weight: 600;
+}
+
+.sp-cycle-current .sp-cycle-indicator {
+  color: var(--vscode-charts-blue, #4daafc);
+}
+
+.sp-cycle-upcoming .sp-cycle-indicator,
+.sp-cycle-unknown .sp-cycle-indicator {
+  color: var(--vscode-descriptionForeground);
+}
+
+.sp-cycle-note {
+  color: var(--vscode-descriptionForeground);
+  font-style: italic;
+}
+
+/* ---- Milestones list ----------------------------------------------------- */
+
+.sp-milestone {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sp-milestone-name {
+  font-weight: 500;
+}
+
+.sp-milestone-date {
+  color: var(--vscode-descriptionForeground);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Utility ------------------------------------------------------------- */
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---- Buttons + actions (roadmap "Open Board", settings actions) ---------- */
+
+.sp-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: var(--sp-gap);
+}
+
+/* Short description line shown above a button (e.g. "Open this sprint's board
+ * in Jira." / "Re-fetch sprint data from Jira."). */
+.sp-action-desc {
+  margin: 0;
+  color: var(--vscode-descriptionForeground);
+}
+
+/* Jira account display name (settings view); shown only when connected. */
+.sp-account-name {
+  margin: 0;
+  font-weight: 600;
+}
+
+/*
+ * Account name ROW (settings view): a green check "✓" beside the display name.
+ * Shown only when connected (the whole account-section is hidden otherwise).
+ * Centered to match the settings view's centered layout.
+ */
+.sp-account-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+}
+
+/* Green check to the left of the account name. */
+.sp-account-check {
+  flex: 0 0 auto;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--vscode-charts-green, #3fb950);
+}
+
+/* Muted "Jira connected and authenticated" line under the name. */
+.sp-account-authenticated {
+  margin: 2px 0 0 0;
+  font-size: 0.9em;
+  color: var(--vscode-descriptionForeground);
+}
+
+/* ---- Settings view: centered layout -------------------------------------- */
+/*
+ * The settings view centers all its content (text + buttons). Buttons are
+ * centered by constraining their width and using auto side margins rather than
+ * stretching full-width.
+ */
+.sp-settings-centered {
+  text-align: center;
+}
+
+.sp-settings-centered .sp-actions {
+  align-items: center;
+}
+
+/* Center the loading row in the settings view to match its centered layout. */
+.sp-settings-centered .sp-loading {
+  justify-content: center;
+}
+
+.sp-settings-centered .sp-button {
+  width: auto;
+  min-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* "Last synced: …" / "Never synced" line under the Refresh button. */
+.sp-last-synced {
+  margin: 0;
+  font-size: 0.9em;
+  color: var(--vscode-descriptionForeground);
+}
+
+.sp-button {
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+  padding: 4px 10px;
+  border: 1px solid var(--vscode-button-border, transparent);
+  border-radius: var(--sp-radius);
+  color: var(--vscode-button-foreground);
+  background-color: var(--vscode-button-background);
+  text-align: center;
+}
+
+.sp-button:hover {
+  background-color: var(--vscode-button-hoverBackground);
+}
+
+.sp-button:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: 1px;
+}
+
+.sp-button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.sp-button-secondary {
+  color: var(--vscode-button-secondaryForeground, var(--vscode-button-foreground));
+  background-color: var(--vscode-button-secondaryBackground, var(--vscode-button-background));
+}
+
+.sp-button-secondary:hover {
+  background-color: var(--vscode-button-secondaryHoverBackground, var(--vscode-button-hoverBackground));
+}
+
+/* ---- Feature toggles (settings) ------------------------------------------ */
+
+.sp-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.sp-toggle input {
+  cursor: pointer;
+}

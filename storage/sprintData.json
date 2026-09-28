@@ -1,0 +1,22 @@
+{
+  "sprints": [
+    { "name": "HRT Apr27 2A", "startDate": "2026-09-11", "endDate": "2026-09-25", "state": "closed" },
+    { "name": "HRT Apr27 2B", "startDate": "2026-09-25", "endDate": "2026-10-09", "state": "active" },
+    { "name": "HRT Apr27 3A", "startDate": "2026-10-09", "endDate": "2026-10-23", "state": "future" }
+  ],
+  "ticketSummary": { "done": 15, "inProgress": 3, "blocked": 2, "total": 20 },
+  "milestones": [
+    { "name": "Branching",      "date": "2026-10-08" },
+    { "name": "1st Preprod",    "date": "2026-11-04" },
+    { "name": "2nd Preprod",    "date": "2026-11-26" },
+    { "name": "Feature Cutoff", "date": "2027-01-22" }
+  ],
+  "releaseRoadmap": [
+    { "label": "1A", "state": "completed" },
+    { "label": "1B", "state": "completed" },
+    { "label": "2A", "state": "completed" },
+    { "label": "2B", "state": "current" },
+    { "label": "3A", "state": "upcoming" },
+    { "label": "3B", "state": "upcoming" }
+  ]
+}

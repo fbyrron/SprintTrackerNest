@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="%CSP%" />
+  <link rel="stylesheet" href="sidebar.css" />
+  <title>Jira Tickets</title>
+</head>
+<body>
+  <!--
+    "Jira Tickets" native view (id sprintpulse.roadmap). Content:
+      1. A ticket progress bar (percent = done/total from the TicketBoardData
+         payload) followed by the active sprint's BOARD COLUMNS — one
+         collapsible sub-group per column, each listing the connected user's
+         own tickets (assignee = connected account) as KEY + summary.
+      2. Collapsible sub-group "Next Sprint" (next sprint name + start date).
+      3. An "Open Board" block (description + button) that is HIDDEN entirely
+         until a board URL is set (driven by {type:"boardState", boardUrl}).
+
+    The collapsibles are HAND-BUILT (a header button with a chevron glyph on the
+    left that rotates, toggling `.sp-collapsed` on the group) to mirror Kiro's
+    MCP Servers nested groups. All are expanded by default. The progress bar +
+    columns render from {type:"ticketBoard"}; Next Sprint from
+    {type:"viewModel"}; the board button from {type:"boardState"}.
+  -->
+  <main id="sprintpulse-root" class="sp-root">
+
+    <!--
+      Loading overlay row. Hidden by default; shown by JS on {type:"loading"}
+      while a fetch is in flight. It sits ABOVE the content and never clears it.
+    -->
+    <div id="loading-indicator" class="sp-loading" hidden>
+      <span class="sp-spinner" aria-hidden="true"></span>
+      <span class="sp-loading-label">Refreshing…</span>
+    </div>
+
+    <!-- Error card. Hidden by default; shown by JS on unreadable data. -->
+    <section id="error-card" class="sp-error-card" hidden>
+      <span class="sp-error-icon" aria-hidden="true">⚠</span>
+      <p id="error-message" class="sp-error-message"></p>
+    </section>
+
+    <!--
+      NOT-CONNECTED empty state. Hidden by default; shown by JS on
+      {type:"notConnected"}. Calm + muted (no red, no border). When shown, the
+      progress bar / columns / Next Sprint / Open Board clutter is hidden.
+    -->
+    <section id="not-connected" class="sp-empty-state" hidden>
+      <span class="sp-empty-glyph" aria-hidden="true">🏃</span>
+      <p id="empty-line-primary" class="sp-empty-line">Not connected to Jira.</p>
+      <p id="empty-line-secondary" class="sp-empty-line sp-empty-sub">Connect in Settings to see your tickets.</p>
+    </section>
+
+    <!--
+      (1) TICKET PROGRESS bar (kept) + the active sprint's BOARD COLUMNS.
+      The bar's percent = done/total from the TicketBoardData payload (0 when
+      total 0). Below it, roadmap.js renders one collapsible sub-group per
+      board column (expanded by default) listing the connected user's tickets
+      as KEY + summary. The 4-number Done/In Progress/Blocked/Total block was
+      removed in favor of the columns.
+    -->
+    <section id="ticket-progress-section" class="sp-section" data-section="tickets">
+      <!-- Ticket progress bar: track + fill (fill width set by JS as %) -->
+      <div class="sp-progress" data-progress="tickets">
+        <div class="progress-track">
+          <div id="ticket-progress-fill" class="progress-fill"></div>
+        </div>
+        <span id="ticket-progress-label" class="sp-progress-label"></span>
+      </div>
+
+      <!--
+        BOARD COLUMNS container. roadmap.js injects one `.sp-section.sp-group`
+        collapsible per column here (with a rotating chevron, the column name,
+        a muted "(n)" count, and the column's ticket rows). Emptied + rebuilt on
+        every {type:"ticketBoard"} message.
+      -->
+      <div id="ticket-columns"></div>
+
+      <!-- Shown when there is no board data yet (not connected / no sprint). -->
+      <p id="ticket-columns-empty" class="sp-empty" hidden>No tickets to show.</p>
+    </section>
+
+    <!-- (2) NEXT SPRINT — collapsible sub-group (expanded by default) -->
+    <section id="next-sprint-section" class="sp-section sp-group" data-section="nextSprint">
+      <button
+        type="button"
+        class="sp-group-header"
+        aria-expanded="true"
+        data-toggle="next-sprint-section"
+      >
+        <span class="sp-chevron" aria-hidden="true">›</span>
+        <span class="sp-group-title">Next Sprint</span>
+        <span id="next-sprint-detail" class="sp-group-detail"></span>
+      </button>
+
+      <div class="sp-group-body">
+        <!-- Shown when a next sprint exists -->
+        <div id="next-sprint-content" class="sp-section-body" hidden>
+          <p id="next-sprint-name" class="sp-sprint-name"></p>
+          <p class="sp-sprint-dates">
+            <span class="sp-date-label">Starts</span>
+            <span id="next-sprint-start" class="sp-date"></span>
+          </p>
+        </div>
+
+        <!-- Shown when there is no next sprint / it cannot be determined -->
+        <p id="next-sprint-empty" class="sp-empty" hidden>No next sprint scheduled.</p>
+      </div>
+    </section>
+
+    <!--
+      OPEN BOARD block. NOT inside a collapsible. Hidden entirely until a board
+      URL is set; roadmap.js toggles [hidden] on this wrapper from
+      {type:"boardState", boardUrl}.
+    -->
+    <div id="open-board-block" class="sp-actions" hidden>
+      <p class="sp-action-desc">Open this sprint's board in Jira.</p>
+      <button
+        id="open-board-button"
+        type="button"
+        class="sp-button"
+      >
+        Open Board
+      </button>
+    </div>
+
+  </main>
+
+  <script nonce="%NONCE%" src="roadmap.js"></script>
+</body>
+</html>
