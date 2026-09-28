@@ -4,7 +4,7 @@
 
 #### Description
 
-SprintTrackerNest is a Visual Studio Code (and Kiro) extension that puts a live
+SprintTrackerNest is a Visual Studio Code extension that puts a live
 "sprint HUD" right inside the editor. Instead of switching to a browser and
 digging through Jira every time I want to know how a sprint is going, I connect
 the extension to my Jira account once, point it at a scrum board, and the sidebar
