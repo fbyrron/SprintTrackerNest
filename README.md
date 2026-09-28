@@ -1,6 +1,6 @@
 # SprintTrackerNest
 
-#### Video Demo: TODO — paste YouTube URL here
+#### Video Demo: https://youtu.be/PmB8a7qyu-U
 
 #### Description
 
