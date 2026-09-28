@@ -17,8 +17,7 @@
     "models/**/*.ts",
     "core/**/*.ts",
     "src/**/*.ts",
-    "webview/**/*.ts",
-    "test/**/*.ts"
+    "webview/**/*.ts"
   ],
   "exclude": [
     "node_modules",

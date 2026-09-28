@@ -90,9 +90,7 @@
     }
   },
   "scripts": {
-    "compile": "tsc -p ./",
-    "test": "mocha \"out/test/unit/**/*.test.js\"",
-    "test:integration": "node ./out/test/integration/runTest.js"
+    "compile": "tsc -p ./"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.6",

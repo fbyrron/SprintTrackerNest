@@ -1,3 +1,9 @@
 node_modules/
 out/
 *.vsix
+
+# Excluded from CS50 submit50 upload (kept locally and on GitHub)
+.kiro/
+test/
+storage/
+VIDEO_SLIDE.md
